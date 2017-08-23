@@ -11,30 +11,25 @@ mongoose.Promise = require('bluebird');
 mongoose.connect('mongodb://localhost:27017/models/characters');
 
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(expressValidator());
 
 app.engine('mustache', mustacheExpress());
 app.set('views', './views')
 app.set('view engine', 'mustache')
 
-app.get('/', function(req, res) {
+app.get('/index', function(req, res) {
 
-  console.log(new characters({name: "Pfannkeucher"}));
+  console.log(new characters({
+    firstname: "Pfannkeucher"
+  }));
   res.render('index')
 })
 
 
 
-
-
-
-
-
-
-// //Listening on root
-//
-//
 // app.post('/newTodo', function(req, res) {
 //     let neewbs = {}
 //     // console.log(req.body.WhatagooataDah)
@@ -55,13 +50,14 @@ app.get('/', function(req, res) {
 // res.redirect('/')
 //
 // })
+
 app.listen(3000, function() {
   console.log('Successfully started express application!');
 })
 
 process.on('SIGINT', function() {
   console.log("\nshutting down");
-  mongoose.connection.close(function () {
+  mongoose.connection.close(function() {
     console.log('Mongoose default connection disconnected on app termination');
     process.exit(0);
   });
