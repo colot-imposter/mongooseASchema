@@ -6,9 +6,9 @@ const mustacheExpress = require('mustache-express');
 const app = express();
 
 const mongoose = require('mongoose');
-const characters = require('./models/characters')
+const Character = require('./models/characters')
 mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://localhost:27017/models/characters');
+mongoose.connect('mongodb://localhost:27017/characters');
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
@@ -21,16 +21,45 @@ app.set('views', './views')
 app.set('view engine', 'mustache')
 
 app.get('/index', function(req, res) {
-
-  console.log(new characters({
-    firstname: "Pfannkeucher"
-  }));
-  res.render('index')
+  Character.find()
+    .then(function(characters) {
+      res.render('index', {
+        characters: characters
+      })
+    })
+    .catch(function(error) {
+      console.log('error ' + JSON.stringify(error));
+    })
 })
 
 
 
-// app.post('/newTodo', function(req, res) {
+app.post('/newDood', function(req, res) {
+
+  let name = req.body.Name
+  let creator = req.body.Creator
+  let born = req.body.Born
+
+  const character = new Character({
+    name: name,
+    creator: creator,
+    born: born
+  });
+  character.save()
+    .then(function(results) {
+      console.log("saved " + results);
+      return Character.find()
+    }).then(function(characters) {
+      console.log(characters);
+      res.render('index', {
+        characters: characters
+      })
+    })
+    .catch(function(error) {
+      console.log('error ' + JSON.stringify(error));
+    })
+})
+
 //     let neewbs = {}
 //     // console.log(req.body.WhatagooataDah)
 //     neewbs.name = req.body.WhatagooataDah

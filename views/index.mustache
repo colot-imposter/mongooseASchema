@@ -21,17 +21,30 @@
 
         <h1>Welche Charakters?</h1>
         <form class="" action="/newDood" method="post">
-          <input type="text" name="firstName" value="" placeholder="First Name...">
-          <input type="submit" name="firstNameButton" value="Submit">
-          <input type="text" name="lastName" value="" placeholder="Last Name...">
-          <input type="submit" name="lastNameButton" value="Submit">
-          <input type="text" name="nickName" value="" placeholder="Nick Name...">
-          <input type="submit" name="nickNameButton" value="Submit">
+          <input type="text" name="Name" value="" placeholder="Name...">
+          <!-- <input type="submit" name="nameButton" value="Submit"> -->
+          <input type="text" name="Creator" value="" placeholder="Creator...">
+          <!-- <input type="submit" name="creatorButton" value="Submit"> -->
+          <input type="number" name="Born" value="" placeholder="Born...">
+          <!-- <input type="submit" name="bornButton" value="Submit"> -->
+          <input type="submit" name="formButton" value="Submit">
         </form>
 
-      
+
 
         <h1>List of Freunden BRoah</h1>
+
+          <table border="1">
+            <tr>
+              <th>Name</th><th>Creator</th><th>Born</th>
+            </tr>
+          {{#characters}}
+          <tr>
+            <td>{{name}}</td><td>{{creator}}</td><td>{{born}}</td>
+          </tr>
+          {{/characters}}
+        </table>
+
 
       </div>
     </div>

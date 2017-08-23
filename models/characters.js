@@ -2,25 +2,18 @@
 // models/recipe.js
 const mongoose = require('mongoose');
 
-const charactersSchema = new mongoose.Schema({
-    name: { first: String, last: String, nickname: String  },
-    creator: String,
-    born: Number,
+const characterSchema = new mongoose.Schema({
+    name: [String],
+    creator: [String],
+    born: [Number],
     Location: [{
         Reality: String,
         World : String,
-        City: { type: String, required: true }
-    }],
-    Personality: [{
-        nihlistic: Boolean,
-        emotion : String,
-        physical: String
-    }],
-    childeren: Number,
-    source: {type: String},
-    objectId: Number
+        City: { type: String }
+    }]
+
 })
 
-const characters = mongoose.model('Characters', charactersSchema);
+const character = mongoose.model('Character', characterSchema);
 
-module.exports = characters
+module.exports = character
